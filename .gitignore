@@ -1,0 +1,16 @@
+HELP.md
+target/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+
+###SOANR LINT ###
+.iml
+*/*.iml
+/qodana.yaml
+TODO.txt
+pom.xml
