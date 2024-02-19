@@ -35,15 +35,16 @@ public class CategoryRepositoryAdapter implements CategoryRepositoryPort {
     @Audit
     public Category findById(Long id) {
         return categoryPersistenceMapper.toCategory(categoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(400, "Category with id : " + id + " not found !",
-                        "CAT_001")));
+                .orElseThrow(() -> new ResourceNotFoundException(400, "error.resource.notFound",
+                        "CAT_001", new Object[]{id})));
     }
 
     @Override
     @Audit
     public void delete(Long id) {
         if (!categoryRepository.existsById(id)) {
-            throw new ResourceNotFoundException(400, "Category with id : " + id + " not found !", "CAT_001");
+            throw new ResourceNotFoundException(400, "error.resource.notFound",
+                    "CAT_001", new Object[]{id});
         }
         categoryRepository.deleteById(id);
     }

@@ -8,17 +8,12 @@ public class EshopGenericException extends RuntimeException{
     private final int httpStatus;
     private final String message;
     private final String errorCode;
+    private final transient Object[] params;
 
-    public EshopGenericException(int httpStatus, String message, String errorCode) {
+    public EshopGenericException(int httpStatus, String message, String errorCode, Object[] params) {
         this.httpStatus = httpStatus;
         this.message = message;
         this.errorCode = errorCode;
-    }
-
-    public EshopGenericException(String message, Throwable cause, int httpStatus, String errorCode) {
-        super(message, cause);
-        this.httpStatus = httpStatus;
-        this.message = message;
-        this.errorCode = errorCode;
+        this.params = params;
     }
 }
