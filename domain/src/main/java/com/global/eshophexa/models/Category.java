@@ -6,7 +6,7 @@ public class Category {
     private String name;
     private Long id;
 
-    public Category(String name, Long id) {
+    public Category(Long id, String name) {
         this.name = name;
         this.id = id;
     }
