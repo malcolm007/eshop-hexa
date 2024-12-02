@@ -1,4 +1,4 @@
-package com.global.eshophexa.infrastructure.kafka.annotations;
+package com.global.eshophexa.infrastructure.kafka.library.annotations;
 
 import org.springframework.stereotype.Component;
 

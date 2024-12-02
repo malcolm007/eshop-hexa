@@ -7,12 +7,13 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.Locale;
 
 @ControllerAdvice
 @RequiredArgsConstructor
-public class EshopExceptionHandler {
+public class EshopExceptionHandler extends ResponseEntityExceptionHandler {
 
     private final MessageSource messageSource;
 

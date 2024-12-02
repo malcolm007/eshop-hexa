@@ -67,8 +67,8 @@ class CategoryRepositoryAdapterTest {
                 Optional.of(getCategoryEntities().get(0)));
 
         Category category = categoryAdapter.findById(1L);
-        Assertions.assertEquals(1L, category.getId());
-        Assertions.assertEquals("cat-1", category.getName());
+        Assertions.assertEquals(1L, category.id());
+        Assertions.assertEquals("cat-1", category.name());
     }
 
 
@@ -78,8 +78,8 @@ class CategoryRepositoryAdapterTest {
 
         Category result = categoryAdapter.createCategory(getCategories().get(0));
 
-        Assertions.assertEquals(getCategories().get(0).getId(), result.getId());
-        Assertions.assertEquals(getCategories().get(0).getName(), result.getName());
+        Assertions.assertEquals(getCategories().get(0).id(), result.id());
+        Assertions.assertEquals(getCategories().get(0).name(), result.name());
     }
 
     @Test

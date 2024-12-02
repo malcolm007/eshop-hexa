@@ -1,18 +1,8 @@
 package com.global.eshophexa.models;
 
+public record Category(
+        Long id,
+        String name
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
-public class Category {
-
-    private String name;
-    private Long id;
-
-    public Category(Long id, String name) {
-        this.name = name;
-        this.id = id;
-    }
+) {
 }

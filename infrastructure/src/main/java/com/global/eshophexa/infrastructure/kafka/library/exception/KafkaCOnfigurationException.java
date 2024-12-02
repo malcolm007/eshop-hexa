@@ -1,4 +1,4 @@
-package com.global.eshophexa.infrastructure.kafka.exception;
+package com.global.eshophexa.infrastructure.kafka.library.exception;
 
 public class KafkaCOnfigurationException extends RuntimeException{
 

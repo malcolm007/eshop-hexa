@@ -1,2 +1,4 @@
-package com.global.eshophexa.models;public class Brand {
+package com.global.eshophexa.models;
+
+public record Order(Long id) {
 }

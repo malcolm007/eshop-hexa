@@ -1,0 +1,5 @@
+{
+  "pathVariables" : {
+    "category_id" : "id"
+  }
+}

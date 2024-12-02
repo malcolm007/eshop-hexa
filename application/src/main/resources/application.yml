@@ -9,8 +9,21 @@ spring:
   messages:
     basename: messages, errors
     encoding: ISO-8859-1
+  kafka:
+    bootstrap-servers: localhost:9093
+  batch:
+    jdbc:
+      initialize-schema: always
 token:
   signing:
     key: privateKeyprivateKeyprivateKeyprivateKeyprivateKeyprivateKeyprivateKey
+eshop.kafka:
+  producers:
+    - name: category
+      enabled: true
+      topic: categoryTopic
+    - name: producer2
+      enabled: false
 
-
+batch:
+  input-file: category-list.csv

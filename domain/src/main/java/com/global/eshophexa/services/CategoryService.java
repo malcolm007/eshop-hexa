@@ -3,9 +3,11 @@ package com.global.eshophexa.services;
 import com.global.eshophexa.models.Category;
 import com.global.eshophexa.ports.incoming.CategoryUseCases;
 import com.global.eshophexa.ports.outgoing.CategoryRepositoryPort;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CategoryService implements CategoryUseCases {
 
     private final CategoryRepositoryPort categoryRepositoryPort;

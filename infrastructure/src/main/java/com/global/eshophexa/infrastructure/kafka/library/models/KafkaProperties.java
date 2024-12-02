@@ -1,4 +1,4 @@
-package com.global.eshophexa.infrastructure.kafka.models;
+package com.global.eshophexa.infrastructure.kafka.library.models;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import java.util.List;
 import java.util.Optional;
 
-@ConfigurationProperties(value="kafka")
+@ConfigurationProperties(value="eshop.kafka")
 @Data
 public class KafkaProperties {
 

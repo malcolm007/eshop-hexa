@@ -1,26 +1,11 @@
 version: "3.8"
 services:
-  vault-server:
-    image: vault:1.13.3
-    container_name: vault-server
-    ports:
-      - "8200:8200"
-    restart: always
-    volumes:
-      - ./vault/logs:/vault/logs
-      - ./vault/file:/vault/file
-      - ./vault/config:/vault/config
-    cap_add:
-      - IPC_LOCK
-    entrypoint: vault server -config=/vault/config/vault.json
 
   zookeeper:
     container_name: zookeeper
     image: docker.io/bitnami/zookeeper:3.7
     ports:
       - "2181:2181"
-    volumes:
-      - "zookeeper_data:/bitnami"
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
 
@@ -30,8 +15,6 @@ services:
     ports:
       - "9092:9092"
       - "9093:9093"
-    volumes:
-      - "kafka_data:/bitnami"
     environment:
       - ALLOW_PLAINTEXT_LISTENER=yes
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
@@ -55,26 +38,58 @@ services:
     depends_on:
       - kafka
       - zookeeper
-  rabbitmq:
-    image: rabbitmq:3-management-alpine
-    container_name: 'rabbitmq'
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-  sonarqube:
-    image: sonarqube:9.8.0-community
-    volumes:
-      - sonarqube_data:/opt/sonarqube/data
-      - sonarqube_extensions:/opt/sonarqube/extensions
-      - sonarqube_logs:/opt/sonarqube/logs
-    ports:
-      - "9000:9000"
 
-volumes:
-  zookeeper_data:
-    driver: local
-  kafka_data:
-    driver: local
-  sonarqube_data:
-  sonarqube_extensions:
-  sonarqube_logs:
+  jenkins:
+    image: jenkins/jenkins:lts
+    privileged: true
+    user: root
+    networks:
+      - gitea
+    ports:
+     - 8080:8080
+     - 50000:50000
+    container_name: jenkins
+    volumes:
+      - ./jenkins/config.xml:/var/jenkins_home/config.xml
+
+  server:
+    image: gitea/gitea
+    container_name: gitea
+    environment:
+      - USER_UID=1000 # Enter the UID found from previous command output
+      - USER_GID=100 # Enter the GID found from previous command output
+      - GITEA__database__DB_TYPE=mysql
+      - GITEA__database__HOST=db:3306
+      - GITEA__database__NAME=gitea
+      - GITEA__database__USER=gitea
+      - GITEA__database__PASSWD=gitea
+    restart: always
+    networks:
+      - gitea
+    volumes:
+      - ./gitea/data:/data
+      - ./gitea/timezone:/etc/timezone:ro
+      - ./gitea/localtime:/etc/localtime:ro
+    ports:
+      - "3000:3000"
+      - "222:22"
+    depends_on:
+      - db
+
+  db:
+    image: mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=gitea
+      - MYSQL_USER=gitea
+      - MYSQL_PASSWORD=gitea
+      - MYSQL_DATABASE=gitea
+    networks:
+      - gitea
+    volumes:
+      - ./mysql:/var/lib/mysql
+
+
+networks:
+  gitea:
+    external: false
